@@ -1,12 +1,77 @@
-﻿<Window x:Class="Szepsegszalon_WPF_PPP.MainWindow"
+﻿<Window x:Name="Szépségszalon" x:Class="Szepsegszalon_WPF_PPP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:Szepsegszalon_WPF_PPP.Model"
         xmlns:local="clr-namespace:Szepsegszalon_WPF_PPP"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Window.DataContext>
+        <model:ViewModel/>
+    </Window.DataContext>
+    <StackPanel>
+        <Label Content="Szépségszalon" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" >
+            <Button Click="megjelenit_Click" Content="Szépségszalon adatainak megjelenítése" Name="megjelenit" Height="70" Margin="5" Background="LightBlue"/>
+            <Button Click="exportAll_Click" Content="Adatok exportálása" Name="exportAll" Height="70" Margin="5" Background="LightBlue"/>
+            <StackPanel Height="auto" Margin="5" Background="LightBlue">
+                <Label Content="Keresés" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Kezelés megnevezése:" Margin="2"/>
+                        <TextBox Grid.Column="2" Margin="2" Name="k_megnevezes"/>
+                    </Grid>
+                    <Grid>
+                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="1*" />
+                         </Grid.ColumnDefinitions>
+                         <Label Grid.Column="0" Content="Alkalmazott neve:" Margin="2"/>
+                         <TextBox Grid.Column="2" Margin="2" Name="alk_nev"/>
+                         <Label Grid.Column="0" Content="Alkalmazott telefonszáma:" Margin="2"/>
+                         <TextBox Grid.Column="2" Margin="2" Name="alk_telefonszam"/>
+                         <Label Grid.Column="0" Content="Alkalmazott szakmája:" Margin="2"/>
+                         <TextBox Grid.Column="2" Margin="2" Name="alk_szakma"/>
+                    </Grid>
+                    <Grid>
+                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="1*" />
+                         </Grid.ColumnDefinitions>
+                         <Label Grid.Column="0" Content="Kezelt vendég neve:" Margin="2"/>
+                         <TextBox Grid.Column="2" Margin="2" Name="vend_nev"/>
+                         <Label Grid.Column="0" Content="Kezelt vendég telefonszáma:" Margin="2"/>
+                         <TextBox Grid.Column="2" Margin="2" Name="vend_telefonszam"/>
+                    </Grid>
+                </StackPanel>
+                <Button Click="szures_Click" Content="Keresés" Name="szures" Background="LightBlue"/>
+            </StackPanel>
+            <Button Click="ujAdat_Click" Content="Új kezelés felvétele" Name="ujAdat" Height="70" Margin="5" Background="LightBlue"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <DataGrid Visibility="Hidden" AutoGenerateColumns="False" CanUserAddRows="False" Name="dataGrid1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Alkalmazott neve" Binding="{Binding Alk_nev}" Width="*"/>
+                    <DataGridTextColumn Header="Vendég neve" Binding="{Binding Vend_nev}" Width="*"/>
+                    <DataGridTextColumn Header="Kezelés ideje" Binding="{Binding Kezeles_datuma}" Width="*"/>
+                    <DataGridTextColumn Header="Kezelés ára" Binding="{Binding Kezeles_ara}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
+    </StackPanel>
 </Window>
